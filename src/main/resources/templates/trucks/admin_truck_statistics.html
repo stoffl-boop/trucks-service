@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container-fluid blue-card col-md-10 offset-md-1">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-white bg-success m-3" style="max-width: 18rem;">
+                    <div class="card-header">Кількість замовлень</div>
+                    <div class="card-body">
+                        <!--<h5 class="card-title">Success card title</h5>
+                        <p class="card-text">Всього замовлень: <p th:text="${countOrders}" th:remove="tag"/></p>
+                        -->
+                        <h5 class="card-title">Всього замовлень: <p th:text="${countOrders}" th:remove="tag"/></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-warning m-3" style="max-width: 18rem;">
+                    <div class="card-header">Кількість авто</div>
+                    <div class="card-body">
+                        <!--<h5 class="card-title">Success card title</h5>
+                         <p class="card-text">Всього замовлень: <p th:text="${countOrders}" th:remove="tag"/></p>
+                         -->
+                        <h5 class="card-title">Всього авто: <p th:text="${countTrucks}" th:remove="tag"/></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-danger m-3" style="max-width: 18rem;">
+                    <div class="card-header">Кількість працівників</div>
+                    <div class="card-body">
+                        <!--<h5 class="card-title">Success card title</h5>
+                         <p class="card-text">Всього замовлень: <p th:text="${countOrders}" th:remove="tag"/></p>
+                         -->
+                        <h5 class="card-title">Всього працівників: <p th:text="${countTruckDrivers}" th:remove="tag"/></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card shadow blue-card custom-card m-2">
+                    <h5 class="card-header info-color text-center py-4">
+                        <strong>Статистика замовлень за місяць</strong>
+                    </h5>
+
+                    <div class="container mt-3 mb-3 mw-100">
+                        <canvas id="monthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow blue-card custom-card m-2">
+                    <h5 class="card-header info-color text-center py-4">
+                        <strong>Статистика виконаних замовлень</strong>
+                    </h5>
+
+                    <div class="container mt-3 mb-3 mw-100">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow blue-card custom-card m-2">
+                    <h5 class="card-header info-color text-center py-4">
+                        <strong>Статистика замовлень по годинам</strong>
+                    </h5>
+
+                    <div class="container mt-3 mb-3 mw-100">
+                        <canvas id="hoursChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow blue-card custom-card m-2">
+                    <h5 class="card-header info-color text-center py-4">
+                        <strong>Статистика завантаженості ресурсів на день за останній місяц</strong>
+                    </h5>
+
+                    <div class="container mt-3 mb-3 mw-100">
+                        <canvas id="loadChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card shadow blue-card custom-card" id="card">
+
+                    <h5 class="card-header info-color text-center py-4">
+                        <strong>Показники відносних витрат</strong>
+                    </h5>
+
+                    <div class="container mt-3 mb-3 mw-100">
+                        <table class="table shadow-lg rounded table-striped">
+                            <thead>
+                            <tr>
+                                <th class="th-sm">Кількість каналів</th>
+                                <th class="th-sm">Вірогідність простою ресурсів</th>
+                                <th class="th-sm">Середнє число клієнтів в черзі</th>
+                                <th class="th-sm">Відносна величина витрат</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="stats : ${listCostsStatistics}">
+                                <td><p th:text="${stats.channels}" th:remove="tag"/></td>
+                                <td><p th:text="${stats.possibilityOfEmptyQueue}" th:remove="tag"/></td>
+                                <td><p th:text="${stats.avgClientsInQueue}" th:remove="tag"/></td>
+                                <td><p th:text="${stats.relativeCosts}" th:remove="tag"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--
+    <div class="card shadow blue-card custom-card" id="card">
+
+    </div>
+    -->
+</main>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
+<script src="register_form.js"></script>
+<script src="admin.js"></script>
+<script src="statistics.js"></script>
+</body>
+</html>

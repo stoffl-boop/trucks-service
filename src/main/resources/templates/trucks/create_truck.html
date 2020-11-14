@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container col-md-6 offset-md-3">
+
+    <div class="card card blue-card" id="card">
+
+        <h5 class="card-header info-color text-center py-4">
+            <strong>Створення запису грузвого авто</strong>
+        </h5>
+
+        <div class="card-body px-lg-5 pt-0">
+            <form id="register_form" class="text-center" method="post" action="/createTruck">
+
+                <input type="text" id="model" name="model" class="form-control blue-card-input mb-4 mt-4"
+                       placeholder="Модель">
+
+                <input type="number" step="0.01" id="length" name="length" class="form-control blue-card-input mb-4"
+                       placeholder="Довжина грузового відсіку">
+
+                <input type="number" step="0.01" id="height" name="height" class="form-control blue-card-input mb-4"
+                       placeholder="Висота грузового відсіку">
+
+                <input type="number" step="0.01" id="volume" name="volume" class="form-control blue-card-input mb-4"
+                       placeholder="Об'єм грузового відсіку">
+
+                <input type="number" step="0.01" id="capacity" name="capacity" class="form-control blue-card-input mb-4"
+                       placeholder="Максимальна вага">
+
+                <input type="text" id="number" name="number" class="form-control blue-card-input mb-4"
+                       placeholder="Номер авто">
+
+                <button class="btn btn-success my-4 btn-block" type="submit">Додати авто</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="register_form.js"></script>
+</body>
+</html>

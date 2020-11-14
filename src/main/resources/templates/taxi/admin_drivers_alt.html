@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container-fluid col-md-10 offset-md-1">
+
+    <div class="card shadow" id="card">
+
+        <h5 class="card-header info-color white-text text-center py-4">
+            <strong>Заявки водіїв</strong>
+        </h5>
+
+        <div class="container mt-3 mb-3">
+            <table id="dtBasicExample" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="th-sm">Ім'я</th>
+                    <th class="th-sm">Прізвище</th>
+                    <th class="th-sm">Ел. пошта</th>
+                    <th class="th-sm">Телефон</th>
+                    <th class="th-sm">Марка Авто</th>
+                    <th class="th-sm">Номер Авто</th>
+                    <th class="th-sm">Статус</th>
+                    <th class="th-sm">Зміна статусу</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="driver : ${drivers}">
+                    <td><p th:text="${driver.firstName}" th:remove="tag"/></td>
+                    <td><p th:text="${driver.secondName}" th:remove="tag"/></td>
+                    <td><p th:text="${driver.email}" th:remove="tag"/></td>
+                    <td><p th:text="${driver.phone}" th:remove="tag"/></td>
+                    <td><p th:text="${driver.auto}" th:remove="tag"/></td>
+                    <td><p th:text="${driver.autoNumber}" th:remove="tag"/></td>
+                    <td th:id="${'drv-' + driver.id}"><p th:text="${driver.status.status}" th:remove="tag"/></td>
+                    <td class="text-center" th:id="${'drv-' + driver.id}" th:switch="${driver.status.status}">
+                        <th:block th:case="'approved'">
+                            <button class="btn btn-danger driver-reject" onClick="sendRequest('/reject_driver', this.id)" th:id="${driver.id}">Відхилити</button>
+                        </th:block>
+                        <th:block th:case="*">
+                            <button class="btn btn-success driver-accept" onClick="sendRequest('/accept_driver', this.id)" th:id="${driver.id}">Прийняти</button>
+                        </th:block>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="register_form.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

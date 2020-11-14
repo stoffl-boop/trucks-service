@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container col-md-6 offset-md-3">
+
+    <div class="card" id="card">
+
+        <h5 class="card-header info-color white-text text-center py-4">
+            <strong>Реєстрація водія</strong>
+        </h5>
+
+        <div class="card-body px-lg-5 pt-0">
+            <form id="register_form" class="text-center" method="post" action="/requestTaxistApproval">
+
+                <div class="form-row mt-4 mb-4">
+                    <div class="col">
+                        <input type="text" id="firstName" name="firstName" class="form-control"
+                               placeholder="Ім'я">
+                    </div>
+                    <div class="col">
+                        <input type="text" id="secondName" name="secondName" class="form-control"
+                               placeholder="Прізвище">
+                    </div>
+                </div>
+
+                <input type="email" id="email" name="email" class="form-control mb-4"
+                       placeholder="Ел. пошта">
+                <input type="password" id="password" name="password" class="form-control"
+                       placeholder="Пароль" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+                <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                    Щонайменше 8 символів
+                </small>
+
+                <input type="text" id="phone" name="phone" class="form-control mb-4"
+                       placeholder="Номер телефону" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+                <input type="text" id="autoName" name="autoName" class="form-control mb-4"
+                       placeholder="Марка авто">
+                <input type="text" id="autoNumber" name="autoNumber" class="form-control mb-4"
+                       placeholder="Номер авто">
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="image" id="imageFile">
+                    <label class="custom-file-label" for="imageFile">Ваше фото</label>
+                </div>
+
+                <button class="btn btn-success my-4 btn-block" type="submit">Подати заявку</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="register_form.js"></script>
+</body>
+</html>

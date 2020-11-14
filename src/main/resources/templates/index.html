@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+
+        <div id="map" class="mb-3"></div>
+
+        <div  id="card">
+            <form id="register_form" method="post" action="/createOrder">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="phone-area">Номер телефону</span>
+                    </div>
+                    <input type="text" id="phone" name="phone" class="form-control" placeholder="" aria-label="Phone" aria-describedby="phone-area">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="from-area">Звідки їдемо</span>
+                    </div>
+                    <input type="text" id="start" name="fromPoint" class="form-control" placeholder="" aria-label="From" aria-describedby="from-area">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="to-area">Куди їдемо</span>
+                    </div>
+                    <input type="text" id="end" name="toPoint" class="form-control" placeholder="" aria-label="To" aria-describedby="to-area">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="add-info-area">Додаткова інформація (Маса/Об'єм грузу)</span>
+                    </div>
+                    <input type="text" id="add-info" name="additionalInfo" class="form-control" aria-label="Additional information" aria-describedby="add-info-area">
+                </div>
+
+                <div class="card text-center text-white bg-dark mb-3" id="priceTable" hidden>
+                    <div class="card-header">
+                        Маршрут побудовано
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" id="distance-label"></h5>
+                        <input type="hidden" id="distance" name="distance">
+                        <p class="card-text" id="price-label"></p>
+                        <input type="hidden" id="price" name="price">
+
+                        <button class="btn btn-success my-4 btn-block" type="submit">Замовити транспорт</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAa6LZBeGhNr9PQ1wc2eUwQQ1wX0PYFWV0&language=uk&libraries=places&callback=initMap">
+        </script>
+
+    </div>
+
+</main>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="register_form.js"></script>
+
+</body>
+</html>

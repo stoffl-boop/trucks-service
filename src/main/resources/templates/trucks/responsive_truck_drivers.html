@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container-fluid col-md-10 offset-md-1">
+
+    <div class="card shadow custom-card" id="card">
+
+        <h5 class="card-header info-color white-text text-center py-4">
+            <strong>Водії</strong>
+        </h5>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="card blue-card m-2" th:each="driver : ${truckDrivers}" style="width: 7rem;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                        <img class="card-img-top rounded border border-light" th:src="${'data:image/png;base64,' + driver.image}"/>
+                    </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h4 class="card-title"><p th:text="${driver.firstName + ' ' + driver.secondName}" th:remove="tag"/></h4>
+                                <p class="card-text"><p th:text="${'Телефон: ' + driver.phone}" th:remove="tag"/></p>
+                                <p class="card-text"><p th:text="${driver?.truck?.model ?: 'Не встановлено'}" th:remove="tag"/></p>
+                                <a href="#" class="btn btn-primary">See Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="register_form.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container-fluid col-md-10 offset-md-1">
+
+    <div class="card shadow blue-card custom-card" id="card">
+
+        <h5 class="card-header info-color text-center py-4">
+            <strong>Замовлення</strong>
+        </h5>
+
+        <div id="truck-drivers-container" class="container mt-3 mb-3 mw-100">
+            <table id="dtBasicExample" class="table shadow-lg rounded table-striped">
+                <thead>
+                <tr>
+                    <th class="th-sm">Замовник</th>
+                    <th class="th-sm">Маршрут</th>
+                    <th class="th-sm">Відстань</th>
+                    <th class="th-sm">Ціна</th>
+                    <th class="th-sm">Додаткова інформація</th>
+                    <th class="th-sm">Час виконання</th>
+                    <th class="th-sm">Статус</th>
+                    <th class="th-sm">Виконавець</th>
+                    <th class="th-sm">Дії</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${truckOrders}">
+                    <td><p th:text="${order.truckClient.phone}" th:remove="tag"/></td>
+                    <td><p th:text="${order.fromPoint + ' - ' + order.toPoint}" th:remove="tag"/></td>
+                    <td><p th:text="${order.distance + ' км'}" th:remove="tag"/></td>
+                    <td><p th:text="${order.price + ' грн'}" th:remove="tag"/></td>
+                    <td><p th:text="${order.additionalInfo}" th:remove="tag"/></td>
+                    <td><p th:text="${order.createTime + ' - '}" th:remove="tag"/><p th:text="${order.completionTime} ?: 'Незавершений'"/></td>
+                    <td><p th:text="${order?.truckOrderStatus?.status}" th:remove="tag"/></td>
+                    <td th:id="${'order-' + order.id}"><p th:text="${order?.truckDriver} ? ${order.truckDriver.firstName + ' ' + order.truckDriver.secondName} : 'Не встановлено'" th:remove="tag"/></td>
+                    <td>
+                        <button th:drv-id="${order.id}" type="button" class="transportAssign btn border border-light rounded-pill btn-success" data-toggle="modal" data-target="#assignAutoModal">
+                            Призначити водія
+                        </button>
+                        <button th:id="${order.id}" type="button" onClick="deleteResourceEntity('/rejectOrder', this.id)" class="driverDelete btn border border-light rounded-pill btn-danger">
+                            Відхилити
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<div class="modal fade" id="assignAutoModal" tabindex="-1" role="dialog" aria-labelledby="assignAutoModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-table modal-dialog-centered" role="document">
+        <div id="assignAutoTableData" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignAutoModalTitle">Оберіть транспорт</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body assign-driver-modal">
+                <table id="assignAutoTable" class="table shadow lg rounded table-striped">
+                    <thead>
+                    <tr>
+                        <th class="th-sm">Модель</th>
+                        <th class="th-sm">Довжина грузового відсіку</th>
+                        <th class="th-sm">Висота грузового відсіку</th>
+                        <th class="th-sm">Об'єм грузового відсік</th>
+                        <th class="th-sm">Максимальна вага</th>
+                        <th class="th-sm">Номер</th>
+                        <th class="th-sm">Дії</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="truck : ${trucks}">
+                        <td><p th:text="${truck.model}" th:remove="tag"/></td>
+                        <td><p th:text="${truck.length + ' м'}" th:remove="tag"/></td>
+                        <td><p th:text="${truck.height + ' м'}" th:remove="tag"/></td>
+                        <td><p th:text="${truck.volume + ' м'}" th:remove="tag"/><sup>3</sup></td>
+                        <td><p th:text="${truck.capacity + ' т'}" th:remove="tag"/></td>
+                        <td><p th:text="${truck.number}" th:remove="tag"/></td>
+                        <td><button id="" type="button" class="btn assignTransportPostButton btn-secondary"
+                                    th:onclick="|assignDriver('/assignDriverForOrder', this.id, '${truck.truckDriver.id}')|">Призначити</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="register_form.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

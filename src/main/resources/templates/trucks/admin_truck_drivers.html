@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container-fluid col-md-10 offset-md-1">
+
+    <div class="card shadow blue-card custom-card" id="card">
+
+        <h5 class="card-header info-color text-center py-4">
+            <strong>Водії</strong>
+        </h5>
+
+        <a href="/createTruckDriver" class="btn btn-success border border-light shadow-lg">Додати нового водія</a>
+
+        <div id="truck-drivers-container" class="container mt-3 mb-3 mw-100">
+            <table id="dtBasicExample" class="table shadow-lg rounded table-striped">
+                <thead>
+                <tr>
+                    <th class="th-sm">Водій</th>
+                    <th class="th-sm">Телефон</th>
+                    <th class="th-sm">Авто</th>
+                    <th class="th-sm">Дії</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="driver : ${truckDrivers}">
+                    <td>
+                        <div class="row col">
+                            <img class="rounded border border-light shadow-lg" th:src="${'data:image/png;base64,' + driver.image}" height="80" width="80"/>
+                            <div class="grid">
+                                <div class="col">
+                                    <p style="font-weight:bold;">Ім`я водія авто: </p><p th:text="${driver.firstName + ' ' + driver.secondName}" th:remove="tag"/>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><p th:text="${driver.phone}" th:remove="tag"/></td>
+                    <td th:id="${'drvTruck-' + driver.id}"><p th:text="${driver?.truck?.model} ?: 'Не встановлено'" th:remove="tag"/></td>
+                    <td>
+                        <button th:drv-id="${driver.id}" type="button" class="transportAssign btn border border-light rounded-pill btn-success" data-toggle="modal" data-target="#assignAutoModal">
+                            Призначити транспорт
+                        </button>
+                        <button th:id="${driver.id}" type="button" onClick="deleteResourceEntity('/deleteTruckDriver', this.id)" class="driverDelete btn border border-light rounded-pill btn-danger">
+                            Видалити
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<div class="modal fade" id="assignAutoModal" tabindex="-1" role="dialog" aria-labelledby="assignAutoModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-table modal-dialog-centered" role="document">
+        <div id="assignAutoTableData" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignAutoModalTitle">Оберіть транспорт</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body assign-auto-modal">
+                <table id="assignAutoTable" class="table shadow lg rounded table-striped">
+                    <thead>
+                    <tr>
+                        <th class="th-sm">Модель</th>
+                        <th class="th-sm">Довжина грузового відсіку</th>
+                        <th class="th-sm">Висота грузового відсіку</th>
+                        <th class="th-sm">Об'єм грузового відсік</th>
+                        <th class="th-sm">Максимальна вага</th>
+                        <th class="th-sm">Номер</th>
+                        <th class="th-sm">Дії</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="truck : ${trucks}">
+                        <td><p th:text="${truck.model}" th:remove="tag"/></td>
+                        <td><p th:text="${truck.length + ' м'}" th:remove="tag"/></td>
+                        <td><p th:text="${truck.height + ' м'}" th:remove="tag"/></td>
+                        <td><p th:text="${truck.volume + ' м'}" th:remove="tag"/><sup>3</sup></td>
+                        <td><p th:text="${truck.capacity + ' т'}" th:remove="tag"/></td>
+                        <td><p th:text="${truck.number}" th:remove="tag"/></td>
+                        <td><button id="" type="button" class="btn assignTransportPostButton btn-secondary"
+                                    th:onclick="|assignAuto('/assign_auto', this.id, '${truck.id}')|">Призначити</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="register_form.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

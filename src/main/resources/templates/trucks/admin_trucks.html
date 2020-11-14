@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container-fluid col-md-10 offset-md-1">
+
+    <div class="card shadow blue-card custom-card" id="card">
+
+        <h5 class="card-header info-color text-center py-4">
+            <strong>Авто</strong>
+        </h5>
+
+        <a href="/createTruck" class="btn btn-success border border-light shadow-lg">Додати нове авто</a>
+
+        <div id="truck-drivers-container" class="container mt-3 mb-3 mw-100">
+            <table id="dtBasicExample" class="table shadow-lg rounded table-striped">
+                <thead>
+                <tr>
+                    <th class="th-sm">Модель</th>
+                    <th class="th-sm">Довжина грузового відсіку</th>
+                    <th class="th-sm">Висота грузового відсіку</th>
+                    <th class="th-sm">Об'єм грузового відсік</th>
+                    <th class="th-sm">Максимальна вага</th>
+                    <th class="th-sm">Номер</th>
+                    <th class="th-sm">Водій</th>
+                    <th class="th-sm">Дії</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="truck : ${trucks}">
+                    <td><p th:text="${truck.model}" th:remove="tag"/></td>
+                    <td><p th:text="${truck.length + ' м'}" th:remove="tag"/></td>
+                    <td><p th:text="${truck.height + ' м'}" th:remove="tag"/></td>
+                    <td><p th:text="${truck.volume + ' м'}" th:remove="tag"/><sup>3</sup></td>
+                    <td><p th:text="${truck.capacity + ' т'}" th:remove="tag"/></td>
+                    <td><p th:text="${truck.number}" th:remove="tag"/></td>
+                    <td><p th:text="${truck?.truckDriver} ? ${truck.truckDriver.firstName + ' ' + truck?.truckDriver.secondName} : 'Не встановлено'" th:remove="tag"/></td>
+                    <td>
+                        <button th:id="${truck.id}" type="button" onClick="deleteResourceEntity('/deleteTruck', this.id)" class="btn border border-light rounded-pill btn-danger">
+                            Видалити
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="register_form.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

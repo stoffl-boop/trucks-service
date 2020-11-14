@@ -1,0 +1,115 @@
+#map {
+    height: 400px;
+}
+
+/**
+body {
+    height: 100%;
+}
+
+#priceTable {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    margin-bottom: 15px;
+}
+
+.table td, .table th {
+    border-top: 0px !important;
+}
+
+.table thead th {
+    border-bottom: 0px !important;
+}
+
+.blue-card {
+    color: white;
+    text-shadow: -1px 1px 2px #192838, 1px 1px 2px #000000b3, 1px -1px 0 #00000091, -1px -1px 0 #000000d1;
+    background: linear-gradient(0deg, rgb(46, 57, 136) 0%, rgb(119, 147, 245) 100%)
+}
+
+.blue-card-input {
+    background-color: #343a40 !important;
+    color: white;
+    text-shadow: -1px 1px 2px #192838, 1px 1px 2px #000000b3, 1px -1px 0 #00000091, -1px -1px 0 #000000d1;
+}
+
+.blue-card-input::placeholder {
+   color: white;
+}
+
+.blue-card-input:focus {
+   color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px #343a40 inset !important;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: white !important;
+}
+
+.blue-card .custom-file-label {
+   color: white;
+   background-color: #343a40 !important;
+}
+
+.blue-card .btn {
+   color: white;
+   border: 1px solid #ced4da;
+   text-shadow: -1px 1px 2px #192838, 1px 1px 2px #000000b3, 1px -1px 0 #00000091, -1px -1px 0 #000000d1;
+}
+
+.blue-card .custom-file-label::after {
+    background-color: #6e89e7;
+    color: white;
+}
+
+.controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.custom-card {
+    border: 0px !important;
+}
+
+.form-control:focus {
+  font-weight: bold;
+  border-color: #FFFFFF;
+  box-shadow: 0px 0px 8px -3px rgba(255,255,255,1);
+}
+
+.page-link {
+    color: #fff !important;
+    background-color: #6f8ae8 !important;
+}
+
+.active .page-link{
+    color: #fff;
+    border-color: #fff !important;
+    background-color: #5db35a !important;
+}
+
+.modal-dialog-table {
+    max-width: 900px;
+}
+*/

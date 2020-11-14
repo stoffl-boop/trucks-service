@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head"></head>
+<body>
+
+<nav th:replace="header :: nav"></nav>
+
+<main role="main" class="container col-md-6 offset-md-3">
+
+    <div class="card blue-card" id="card">
+
+        <h5 class="card-header info-color text-center py-4">
+            <strong>Створення профілю водія</strong>
+        </h5>
+
+        <div class="card-body px-lg-5 pt-0">
+            <form id="register_form" class="text-center" method="post" action="/createTruckDriver">
+
+                <div class="form-row mt-4 mb-4">
+                    <div class="col">
+                        <input type="text" id="firstName" name="firstName" class="form-control blue-card-input"
+                               placeholder="Ім'я">
+                    </div>
+                    <div class="col">
+                        <input type="text" id="secondName" name="secondName" class="form-control blue-card-input"
+                               placeholder="Прізвище">
+                    </div>
+                </div>
+
+                <input type="text" id="phone" name="phone" class="form-control blue-card-input mb-4"
+                       placeholder="Номер телефону" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input blue-card-input" name="image" id="imageFile">
+                    <label class="custom-file-label" for="imageFile">Фото</label>
+                </div>
+
+                <button class="btn btn-success my-4 btn-block" type="submit">Додати водія</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="footer :: footer"></footer>
+<script src="map.js"></script>
+<script src="register_form.js"></script>
+</body>
+</html>
