@@ -100,6 +100,6 @@ public class TruckOrderController {
             truckOrderRepository.save(order);
         });
 
-        return "reject_order";
+        return "complete_order";
     }
 }

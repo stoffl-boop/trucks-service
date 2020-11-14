@@ -173,7 +173,7 @@ public class AdminController {
 
     private List<OrderCostsStatistics> getOrderCostsStatistics() {
         float intesivity = getIntensity();
-        float avgServiceTime = (float) truckOrderRepository.countAverageServiceTime() / 60;
+        float avgServiceTime = (float) truckOrderRepository.countAverageServiceTime() / 60; //here we get hours
 
         float minResources = intesivity * avgServiceTime;
         int minResourcesCeiled = (int) Math.ceil(minResources);
@@ -239,15 +239,9 @@ public class AdminController {
         return countClientsInQueue(minResources, channels, countPossibilityOfEmptyQueue(minResources, channels).floatValue()).divide(new BigDecimal(intensity), RoundingMode.HALF_UP);
     }
 
+    //we need to get orders per hour
     private float getIntensity() {
-        Map<String, Integer> hoursPercentageMap = new TreeMap<>();
-        DEFAULT_HOURS.forEach(defaultHour -> hoursPercentageMap.put(defaultHour, 0));
-        truckOrderRepository.findAllByCreateTimeBetween(LocalDateTime.now().minusDays(STATISTICS_DAYS_PERIOD), LocalDateTime.now()).forEach(order -> {
-            int orderHour = order.getCreateTime().getHour();
-            String hours = orderHour + ":00 - " + (orderHour + 1) + ":00";
-            hoursPercentageMap.put(hours, hoursPercentageMap.getOrDefault(hours,0) + 1);
-        });
-        return (float) hoursPercentageMap.entrySet().stream().mapToInt(Map.Entry::getValue).sum() / (hoursPercentageMap.size() * STATISTICS_DAYS_PERIOD);
+        return (float) truckOrderRepository.findAllByCreateTimeBetween(LocalDateTime.now().minusDays(STATISTICS_DAYS_PERIOD), LocalDateTime.now()).size() / (STATISTICS_DAYS_PERIOD * 24); //we multiply 15 days on 24 hours
     }
 
     private BigDecimal countPossibilityOfEmptyQueue(float minResources, int channels) {

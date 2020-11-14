@@ -17,7 +17,7 @@ function changeTaxiDriverStatus(url, driverId) {
 }
 
 function modalWindowAssignEventProcessing() {
-    $('.transportAssign').click(function(e) {
+    $('#truck-drivers-container').on('click', '.transportAssign', function(e) {
         $('#assignAutoTableData').load(' #assignAutoTableData', function() {
             $(this).children().unwrap();
             $('#assignAutoTable').DataTable();

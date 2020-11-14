@@ -2,6 +2,10 @@
     height: 400px;
 }
 
+.modal-dialog-table {
+    max-width: 900px;
+}
+
 /**
 body {
     height: 100%;
@@ -109,7 +113,4 @@ input:-webkit-autofill {
     background-color: #5db35a !important;
 }
 
-.modal-dialog-table {
-    max-width: 900px;
-}
 */
