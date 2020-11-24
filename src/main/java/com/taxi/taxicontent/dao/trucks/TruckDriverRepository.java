@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface TruckDriverRepository extends CrudRepository<TruckDriver, Integer> {
 
+    TruckDriver findByEmail(String email);
+
     TruckDriver findByPhone(String phone);
 
     List<TruckDriver> findByTruckIsNull();

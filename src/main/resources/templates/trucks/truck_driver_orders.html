@@ -29,7 +29,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="order : ${truckOrders}">
+                <tr th:each="order : ${driverOrders}">
                     <td><p th:text="${order.truckClient.phone}" th:remove="tag"/></td>
                     <td><p th:text="${order.fromPoint + ' - ' + order.toPoint}" th:remove="tag"/></td>
                     <td><p th:text="${order.distance + ' км'}" th:remove="tag"/></td>
@@ -46,11 +46,8 @@
                     </td>
                     <td th:id="${'order-' + order.id}"><p th:text="${order?.truckDriver} ? ${order.truckDriver.firstName + ' ' + order.truckDriver.secondName} : 'Не встановлено'" th:remove="tag"/></td>
                     <td>
-                        <button th:drv-id="${order.id}" type="button" class="transportAssign btn border border-light rounded-pill btn-success" data-toggle="modal" data-target="#assignAutoModal">
-                            Призначити водія
-                        </button>
-                        <button th:id="${order.id}" type="button" onClick="deleteResourceEntity('/rejectOrder', this.id)" class="driverDelete btn border border-light rounded-pill btn-danger">
-                            Відхилити
+                        <button th:id="${order.id}" type="button" onClick="deleteResourceEntity('/completeOrder', this.id)" class="driverDelete btn border border-light rounded-pill btn-success">
+                            Замовлення виконано
                         </button>
                     </td>
                 </tr>
@@ -79,7 +76,6 @@
                         <th class="th-sm">Об'єм грузового відсік</th>
                         <th class="th-sm">Максимальна вага</th>
                         <th class="th-sm">Номер</th>
-                        <th class="th-sm">Активні замовлення</th>
                         <th class="th-sm">Дії</th>
                     </tr>
                     </thead>
@@ -91,7 +87,6 @@
                         <td><p th:text="${truck.volume + ' м'}" th:remove="tag"/><sup>3</sup></td>
                         <td><p th:text="${truck.capacity + ' т'}" th:remove="tag"/></td>
                         <td><p th:text="${truck.number}" th:remove="tag"/></td>
-                        <td><p th:text="${#lists.size(truck.truckDriver.truckOrders)}" th:remove="tag"/></td>
                         <td><button id="" type="button" class="btn assignTransportPostButton btn-secondary"
                                     th:onclick="|assignDriver('/assignDriverForOrder', this.id, '${truck.truckDriver.id}')|">Призначити</button></td>
                     </tr>

@@ -14,6 +14,62 @@
         </h5>
 
         <div class="card-body px-lg-5 pt-0">
+
+            <form autocomplete="off" action="#" th:action="@{/registration_driver}"
+                  th:object="${truckDriver}" method="post" class="form-horizontal"
+                  role="form">
+                <div class="form-row mt-4 mb-4">
+                    <div class="col">
+                        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                               class="validation-message text-danger"></label>
+                        <input type="text" th:field="*{firstName}" placeholder="Ім'я"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-row mt-4 mb-4">
+                    <div class="col">
+                        <label th:if="${#fields.hasErrors('secondName')}" th:errors="*{secondName}"
+                               class="validation-message text-danger"></label>
+                        <input type="text" th:field="*{secondName}"
+                               placeholder="Прізвище" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-row mt-4 mb-4">
+                    <div class="col">
+                        <label
+                                th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                class="validation-message text-danger"></label>
+                        <input type="text" th:field="*{email}" placeholder="Email"
+                               class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-row mt-4 mb-4">
+                    <div class="col">
+                        <label
+                                th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                                class="validation-message text-danger"></label>
+                        <input type="text" th:field="*{phone}" placeholder="Нормер телефону"
+                               class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-row mt-4 mb-4">
+                    <div class="col">
+                        <label
+                                th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                class="validation-message text-danger"></label>
+                        <input type="password" th:field="*{password}"
+                               placeholder="Пароль" class="form-control"/>
+                    </div>
+                </div>
+
+                <button class="btn btn-success my-4 btn-block" type="submit">Додати водія</button>
+
+                <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+
+            </form>
+
+            <!--
             <form id="register_form" class="text-center" method="post" action="/createTruckDriver">
 
                 <div class="form-row mt-4 mb-4">
@@ -37,6 +93,7 @@
 
                 <button class="btn btn-success my-4 btn-block" type="submit">Додати водія</button>
             </form>
+            -->
         </div>
     </div>
 </main>

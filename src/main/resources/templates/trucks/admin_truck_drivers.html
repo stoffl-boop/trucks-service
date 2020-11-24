@@ -13,10 +13,10 @@
             <strong>Водії</strong>
         </h5>
 
-        <a href="/createTruckDriver" class="btn btn-success border border-light shadow-lg">Додати нового водія</a>
+        <a href="/createTruckDriver" class="btn btn-success border border-light shadow-sm">Додати нового водія</a>
 
         <div id="truck-drivers-container" class="container mt-3 mb-3 mw-100">
-            <table id="dtBasicExample" class="table shadow-lg rounded table-striped">
+            <table id="dtBasicExample" class="table shadow-sm rounded table-striped">
                 <thead>
                 <tr>
                     <th class="th-sm">Водій</th>
@@ -29,7 +29,7 @@
                 <tr th:each="driver : ${truckDrivers}">
                     <td>
                         <div class="row col">
-                            <img class="rounded border border-light shadow-lg" th:src="${'data:image/png;base64,' + driver.image}" height="80" width="80"/>
+                            <img class="rounded border border-light shadow-sm" th:src="${'data:image/png;base64,' + driver.image}" height="80" width="80"/>
                             <div class="grid">
                                 <div class="col">
                                     <p style="font-weight:bold;">Ім`я водія авто: </p><p th:text="${driver.firstName + ' ' + driver.secondName}" th:remove="tag"/>

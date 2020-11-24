@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">
     <a class="navbar-brand" href="#">ServeGruz v1.0</a>
@@ -12,18 +12,26 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Домашня</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin_truck_drivers">Водії</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin_trucks">Авто</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin_truck_orders">Замовлення</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin_truck_statistics">Аналітична система</a>
-            </li>
+            <div sec:authorize="hasAuthority('ADMIN')" th:remove="tag">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin_truck_drivers">Водії</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin_trucks">Авто</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin_truck_orders">Замовлення</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin_truck_statistics">Аналітична система</a>
+                </li>
+            </div>
+            <div sec:authorize="hasAuthority('DRIVER')" th:remove="tag">
+                <li class="nav-item">
+                    <a class="nav-link" href="/truck_driver_orders">Мої замовлення</a>
+                </li>
+            </div>
+
 
             <!--
             <li class="nav-item">
@@ -45,9 +53,16 @@
             </li>
             -->
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <a class="btn btn btn-outline-dark" href="register" role="button">Реєстрація</a>
-        </form>
+        <div sec:authorize="not hasAuthority('DRIVER') and not hasAuthority('ADMIN')" th:remove="tag">
+            <form class="form-inline my-2 my-lg-0">
+                <a class="btn btn btn-outline-dark" href="/login" role="button">Вхід</a>
+            </form>
+        </div>
+        <div sec:authorize="hasAuthority('DRIVER') or hasAuthority('ADMIN')" th:remove="tag">
+            <form class="form-inline my-2 my-lg-0">
+                <a class="btn btn btn-outline-dark" href="/logout" role="button">Вихід</a>
+            </form>
+        </div>
     </div>
 </nav>
 

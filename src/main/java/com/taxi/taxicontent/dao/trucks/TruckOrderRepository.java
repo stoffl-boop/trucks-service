@@ -14,6 +14,8 @@ import java.util.List;
 
 public interface TruckOrderRepository extends CrudRepository<TruckOrder, Integer> {
 
+    List<TruckOrder> findAllByTruckOrderStatus(TruckOrderStatus truckOrderStatus);
+
     List<TruckOrder> findAllByTruckDriver(TruckDriver truckDriver);
 
     List<TruckOrder> findAllByCreateTimeBetween(LocalDateTime createTimeFrom, LocalDateTime createTimeTo);

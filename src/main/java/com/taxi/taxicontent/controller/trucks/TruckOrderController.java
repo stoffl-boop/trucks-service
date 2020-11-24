@@ -8,7 +8,10 @@ import com.taxi.taxicontent.model.trucks.TruckDriver;
 import com.taxi.taxicontent.model.trucks.TruckOrder;
 import com.taxi.taxicontent.type.TruckOrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -101,5 +104,13 @@ public class TruckOrderController {
         });
 
         return "complete_order";
+    }
+
+    @GetMapping("/truck_driver_orders")
+    public String getTruckDrivers(Model model) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        TruckDriver truckDriver = truckDriverRepository.findByEmail(userDetails.getUsername());
+        model.addAttribute("driverOrders",  truckOrderRepository.findAllByTruckDriver(truckDriver));
+        return "trucks/truck_driver_orders";
     }
 }

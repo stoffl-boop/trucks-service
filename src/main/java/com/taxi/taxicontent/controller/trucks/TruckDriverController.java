@@ -9,11 +9,13 @@ import com.taxi.taxicontent.model.trucks.TruckOrder;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,9 +32,13 @@ public class TruckDriverController {
     @Autowired
     private TruckOrderRepository truckOrderRepository;
 
-    @GetMapping("/createTruckDriver")
-    public String createTruckDriver() {
-        return "trucks/create_truck_driver";
+    @RequestMapping(value="/createTruckDriver", method = RequestMethod.GET)
+    public ModelAndView registration(){
+        ModelAndView modelAndView = new ModelAndView();
+        TruckDriver truckDriver = new TruckDriver();
+        modelAndView.addObject("truckDriver", truckDriver);
+        modelAndView.setViewName("trucks/create_truck_driver");
+        return modelAndView;
     }
 
     @PostMapping(path = "/createTruckDriver")

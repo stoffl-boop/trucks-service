@@ -8,6 +8,7 @@ import com.taxi.taxicontent.model.trucks.OrderCostsStatistics;
 import com.taxi.taxicontent.model.trucks.OrderCountStatistics;
 import com.taxi.taxicontent.model.trucks.OrderLoadStatistics;
 import com.taxi.taxicontent.model.trucks.OrderStatusStatistics;
+import com.taxi.taxicontent.model.trucks.TruckDriver;
 import com.taxi.taxicontent.model.trucks.TruckOrder;
 import com.taxi.taxicontent.type.TruckOrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,13 @@ public class AdminController {
 
     @GetMapping("/admin_drivers")
     public String loginAdmin(Model model) {
-        model.addAttribute("drivers", driverRepository.findAll());
+        List<TruckDriver> truckDrivers = new ArrayList<>();
+        truckDriverRepository.findAll().forEach(driver -> {
+            if (driver.getRoles().stream().anyMatch(role -> role.getRole().equals("DRIVER"))) {
+                truckDrivers.add(driver);
+            }
+        });
+        model.addAttribute("drivers", truckDrivers);
         return "taxi/admin_drivers";
     }
 
@@ -82,7 +89,13 @@ public class AdminController {
 
     @GetMapping("/admin_truck_drivers")
     public String getTruckOrders(Model model) {
-        model.addAttribute("truckDrivers", truckDriverRepository.findAll());
+        List<TruckDriver> truckDrivers = new ArrayList<>();
+        truckDriverRepository.findAll().forEach(truckDriver -> {
+            if (truckDriver.getRoles().stream().anyMatch(role -> role.getRole().equals("DRIVER"))) {
+                truckDrivers.add(truckDriver);
+            }
+        });
+        model.addAttribute("truckDrivers", truckDrivers);
         model.addAttribute("trucks", truckRepository.findByTruckDriverIsNull());
         return "trucks/admin_truck_drivers";
     }
@@ -90,6 +103,13 @@ public class AdminController {
     @GetMapping("/admin_truck_orders")
     public String getTruckDrivers(Model model) {
         model.addAttribute("truckOrders", truckOrderRepository.findAll());
+        truckRepository.findByTruckDriverIsNotNull().forEach(truck -> {
+            List<TruckOrder> processingTrucksOrders = new ArrayList<>();
+            truck.getTruckDriver().getTruckOrders().stream()
+                    .filter(order -> order.getTruckOrderStatus().equals(TruckOrderStatus.PROCESSING))
+                    .forEach(processingTrucksOrders::add);
+            truck.getTruckDriver().setTruckOrders(processingTrucksOrders);
+        });
         model.addAttribute("trucks", truckRepository.findByTruckDriverIsNotNull());
         return "trucks/admin_truck_orders";
     }
