@@ -13,5 +13,7 @@ public interface TruckDriverRepository extends CrudRepository<TruckDriver, Integ
 
     List<TruckDriver> findByTruckIsNull();
 
+    List<TruckDriver> findByTruckIsNotNull();
+
     long count();
 }

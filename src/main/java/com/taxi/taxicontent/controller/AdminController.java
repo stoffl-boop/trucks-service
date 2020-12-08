@@ -66,8 +66,9 @@ public class AdminController {
     @Autowired
     private TruckRepository truckRepository;
 
+    /*
     @GetMapping("/admin_drivers")
-    public String loginAdmin(Model model) {
+    public String showDrivers(Model model) {
         List<TruckDriver> truckDrivers = new ArrayList<>();
         truckDriverRepository.findAll().forEach(driver -> {
             if (driver.getRoles().stream().anyMatch(role -> role.getRole().equals("DRIVER"))) {
@@ -77,13 +78,30 @@ public class AdminController {
         model.addAttribute("drivers", truckDrivers);
         return "taxi/admin_drivers";
     }
+     */
 
     @GetMapping("/admin_truck_statistics")
     public String getStatistic(Model model) {
+        List<TruckDriver> truckDrivers = new ArrayList<>();
+        truckDriverRepository.findAll().forEach(truckDriver -> {
+            if (truckDriver.getRoles().stream().anyMatch(role -> role.getRole().equals("DRIVER"))) {
+                truckDrivers.add(truckDriver);
+            }
+        });
         model.addAttribute("countTrucks", truckRepository.count());
         model.addAttribute("countOrders", truckOrderRepository.count());
-        model.addAttribute("countTruckDrivers", truckDriverRepository.count());
+        model.addAttribute("countTruckDrivers", truckDrivers.size());
+        model.addAttribute("readyResources", truckDriverRepository.findByTruckIsNotNull().size());
         model.addAttribute("listCostsStatistics", getOrderCostsStatistics());
+        model.addAttribute("intensity", String.format("%.3f", getIntensity()));
+        model.addAttribute("timeOfService", String.format("%.1f", truckOrderRepository.countAverageServiceTime() / 60.0));
+        model.addAttribute("possibilityEmpty", getPossibilityOfEmptyQueue((float) (getIntensity() * truckOrderRepository.countAverageServiceTime() / 60.0),
+                truckDriverRepository.findByTruckIsNotNull().size()));
+        long percentOfDeny = truckOrderRepository.collectTruckOrderStatusStatistics(Collections.singletonList(TruckOrderStatus.REJECTED)).get(0).getCount() * 100 / (truckOrderRepository.collectTruckOrderStatusStatistics(Collections.singletonList(TruckOrderStatus.REJECTED)).get(0).getCount() + truckOrderRepository.collectTruckOrderStatusStatistics(Collections.singletonList(TruckOrderStatus.COMPLETED)).get(0).getCount());
+        model.addAttribute("possibilityOfDeny", percentOfDeny);
+        model.addAttribute("possibilityOfCompletion", 100 - percentOfDeny);
+        model.addAttribute("averageChannelsInAction", String.format("%.3f",getIntensity() * (1 - (percentOfDeny / 100.0))));
+        model.addAttribute("bandWidth", String.format("%.3f", (truckOrderRepository.countAverageServiceTime() / 60.0) * getIntensity() * (1 - (percentOfDeny / 100.0))));
         return "trucks/admin_truck_statistics";
     }
 
@@ -124,15 +142,19 @@ public class AdminController {
     @GetMapping("/getStatisticsForMonth")
     public @ResponseBody
     List<OrderCountStatistics> getStatisticsForMonth() {
+        List<OrderCountStatistics> result = new ArrayList<>();
         List<OrderCountStatistics> orderCountStatistics = truckOrderRepository.collectOrderCountStatisticsForLastMonth();
         for (int i = 0; i <= 15; i++) {
             LocalDate date = LocalDate.now().minusDays(i);
+            orderCountStatistics.stream()
+                    .filter(orderCountStatisticsEntry -> orderCountStatisticsEntry.getCreateDate().equals(date))
+                    .forEach(result::add);
             if (orderCountStatistics.stream().noneMatch(orderStatistics -> orderStatistics.getCreateDate().equals(date))) {
-                orderCountStatistics.add(0, new OrderCountStatistics(date, 0));
+                result.add(0, new OrderCountStatistics(date, 0));
             }
         }
-        Collections.sort(orderCountStatistics);
-        return orderCountStatistics;
+        Collections.sort(result);
+        return result;
     }
 
     @GetMapping("/getStatisticsForHoursPercent")

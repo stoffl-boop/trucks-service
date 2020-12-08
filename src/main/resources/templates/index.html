@@ -8,7 +8,7 @@
 
 <main role="main" class="container">
 
-    <div class="starter-template">
+    <div class="starter-template mt-3">
 
         <div id="map" class="mb-3"></div>
 
@@ -40,17 +40,29 @@
                     <input type="text" id="add-info" name="additionalInfo" class="form-control" aria-label="Additional information" aria-describedby="add-info-area">
                 </div>
 
-                <div class="card text-center text-white bg-dark mb-3" id="priceTable" hidden>
+                <div class="card text-center mb-3" id="priceTable" hidden>
                     <div class="card-header">
                         Маршрут побудовано
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title" id="distance-label"></h5>
-                        <input type="hidden" id="distance" name="distance">
-                        <p class="card-text" id="price-label"></p>
-                        <input type="hidden" id="price" name="price">
 
-                        <button class="btn btn-success my-4 btn-block" type="submit">Замовити транспорт</button>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="distance-label"></span>
+                            </div>
+                            <input type="text" id="distanceLabel" name="distanceLabel" class="form-control" placeholder="" aria-label="" aria-describedby="distance-label" readonly>
+                            <input type="hidden" id="distance" name="distance">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="price-label"></span>
+                            </div>
+                            <input type="text" id="priceLabel" name="priceLabel" class="form-control" placeholder="" aria-label="" aria-describedby="price-label" readonly>
+                            <input type="hidden" id="price" name="price">
+                        </div>
+
+                        <button class="btn btn-success btn-block" type="submit">Замовити транспорт</button>
                     </div>
                 </div>
 

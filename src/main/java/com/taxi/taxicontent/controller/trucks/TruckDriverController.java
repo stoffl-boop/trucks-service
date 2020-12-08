@@ -43,7 +43,7 @@ public class TruckDriverController {
 
     @PostMapping(path = "/createTruckDriver")
     public @ResponseBody
-    String registerTaxistRequestPost(@RequestParam String firstName,
+    String createTruckDriver(@RequestParam String firstName,
                                      @RequestParam String secondName,
                                      @RequestParam MultipartFile image,
                                      @RequestParam String phone) throws IOException {
@@ -62,7 +62,7 @@ public class TruckDriverController {
 
     @PostMapping(path = "/assign_auto")
     public @ResponseBody
-    String acceptDriver(@RequestParam String driverId,
+    String assignAuto(@RequestParam String driverId,
                         @RequestParam String truckId) {
         TruckDriver driver = truckDriverRepository.findById(Integer.valueOf(driverId)).orElse(null);
         Truck truck = truckRepository.findById(Integer.valueOf(truckId)).orElse(null);

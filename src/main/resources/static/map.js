@@ -151,8 +151,12 @@ AutocompleteDirectionsHandler.prototype.route = function () {
                 var distanceField = document.getElementById("distance-label");
                 var price = Math.round(route.legs[0].distance.value * 0.012);
                 var distance = route.legs[0].distance;
-                priceField.innerText = 'Ціна: ' + price + ' грн';
-                distanceField.innerText = 'Відстань: ' + distance.text;
+                priceField.innerText = 'Ціна:';
+                distanceField.innerText = 'Відстань:';
+
+                document.getElementById('priceLabel').setAttribute('value', price + ' грн');
+                document.getElementById('distanceLabel').setAttribute('value', distance.text);
+
                 document.getElementById("priceTable").hidden = false;
                 document.getElementById('price').setAttribute('value', price);
                 document.getElementById('distance').setAttribute('value', distance.value / 1000);

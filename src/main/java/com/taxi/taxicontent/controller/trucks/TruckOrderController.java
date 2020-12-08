@@ -40,7 +40,7 @@ public class TruckOrderController {
 
     @PostMapping(path = "/createOrder")
     public @ResponseBody
-    String registerTaxistRequestPost(@RequestParam String phone,
+    String createOrder(@RequestParam String phone,
                                      @RequestParam String fromPoint,
                                      @RequestParam String toPoint,
                                      @RequestParam float distance,

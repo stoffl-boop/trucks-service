@@ -41,6 +41,17 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-primary m-3" style="max-width: 18rem;">
+                    <div class="card-header">Кількість водіїв (Активних)</div>
+                    <div class="card-body">
+                        <!--<h5 class="card-title">Success card title</h5>
+                         <p class="card-text">Всього замовлень: <p th:text="${countOrders}" th:remove="tag"/></p>
+                         -->
+                        <h5 class="card-title">Всього працівників: <p th:text="${readyResources}" th:remove="tag"/></h5>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-8">
                 <div class="card shadow blue-card custom-card m-2">
                     <h5 class="card-header info-color text-center py-4">
@@ -59,7 +70,22 @@
                     </h5>
 
                     <div class="container mt-3 mb-3 mw-100">
-                        <canvas id="statusChart"></canvas>
+                        <canvas id="statusChart" class="mb-5"></canvas>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text text-white bg-success" id="accepted-label">Виконано</span>
+                            </div>
+                            <input type="text" th:value="${possibilityOfCompletion + '%'}" id="acceptedLabel" name="acceptedLabel" class="form-control" placeholder="" aria-label="" aria-describedby="accepted-label" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text text-white bg-danger" id="rejected-label">Відхилено</span>
+                            </div>
+                            <input type="text" th:value="${possibilityOfDeny + '%'}" id="rejectedLabel" name="rejectedLabel" class="form-control" placeholder="" aria-label="" aria-describedby="rejected-label" readonly>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -85,7 +111,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 pt-3">
                 <div class="card shadow blue-card custom-card" id="card">
 
                     <h5 class="card-header info-color text-center py-4">
@@ -114,6 +140,53 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-12 pt-2">
+                <div class="card shadow blue-card custom-card" id="cardStats">
+
+                    <h5 class="card-header info-color text-center py-4">
+                        <strong>Характеристики системи</strong>
+                    </h5>
+
+                    <div class="container mt-3 mb-3 mw-100">
+                        <table class="table shadow-sm rounded table-striped">
+                            <thead>
+                            <tr>
+                                <th class="th-sm">Характеристика</th>
+                                <th class="th-sm">Значення</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Інтенсивність навантаження</td>
+                                <td><p th:text="${intensity}" th:remove="tag"/> замовлень в годину</td>
+                            </tr>
+                            <tr>
+                                <td>Середній час виконання замовлення</td>
+                                <td><p th:text="${timeOfService}" th:remove="tag"/> годин</td>
+                            </tr>
+                            <tr>
+                                <td>Ймовірність порожньої черги в системі</td>
+                                <td><p th:text="${possibilityEmpty}" th:remove="tag"/>%</td>
+                            </tr>
+                            <tr>
+                                <td>Ймовірність відхилення заявки</td>
+                                <td><p th:text="${possibilityOfDeny}" th:remove="tag"/>%</td>
+                            </tr>
+                            <tr>
+                                <td>Среднє число каналів, зайнятих обслуговуванням</td>
+                                <td><p th:text="${averageChannelsInAction}" th:remove="tag"/></td>
+                            </tr>
+                            <tr>
+                                <td>Абсолютна пропускна здатність (кількість обслугованих заявок за годину)</td>
+                                <td><p th:text="${bandWidth}" th:remove="tag"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
     <!--
     <div class="card shadow blue-card custom-card" id="card">

@@ -7,7 +7,7 @@
 
 <main role="main" class="container-fluid col-md-10 offset-md-1">
 
-    <div class="card shadow blue-card custom-card" id="card">
+    <div class="card shadow blue-card custom-card mt-3" id="card">
 
         <h5 class="card-header info-color text-center py-4">
             <strong>Замовлення</strong>
@@ -22,8 +22,6 @@
                     <th class="th-sm">Відстань</th>
                     <th class="th-sm">Ціна</th>
                     <th class="th-sm">Додаткова інформація</th>
-                    <th class="th-sm">Час виконання</th>
-                    <th class="th-sm">Статус</th>
                     <th class="th-sm">Виконавець</th>
                     <th class="th-sm">Дії</th>
                 </tr>
@@ -35,20 +33,18 @@
                     <td><p th:text="${order.distance + ' км'}" th:remove="tag"/></td>
                     <td><p th:text="${order.price + ' грн'}" th:remove="tag"/></td>
                     <td><p th:text="${order.additionalInfo}" th:remove="tag"/></td>
-                    <td><p th:text="${order.createTime + ' - '}" th:remove="tag"/><p th:text="${order.completionTime == 0 ? 'Незавершений' : order.completionTime + ' хв.'}"/></td>
+                    <td th:id="${'order-' + order.id}"><p th:text="${order?.truckDriver} ? ${order.truckDriver.firstName + ' ' + order.truckDriver.secondName} : 'Не встановлено'" th:remove="tag"/></td>
                     <td>
                         <div th:switch="${order?.truckOrderStatus?.status}">
-                            <p th:case="'processing'" th:remove="tag">В процесі виконання</p>
+                            <p th:case="'processing'" th:remove="tag">
+                                <button th:id="${order.id}" type="button" onClick="deleteResourceEntity('/completeOrder', this.id)" class="driverDelete btn border border-light rounded-pill btn-success">
+                                Замовлення виконано
+                                </button>
+                            </p>
                             <p th:case="'rejected'" th:remove="tag">Відхилено</p>
                             <p th:case="'completed'" th:remove="tag">Виконано</p>
                             <p th:case="*" th:remove="tag">Очікує в черзі</p>
                         </div>
-                    </td>
-                    <td th:id="${'order-' + order.id}"><p th:text="${order?.truckDriver} ? ${order.truckDriver.firstName + ' ' + order.truckDriver.secondName} : 'Не встановлено'" th:remove="tag"/></td>
-                    <td>
-                        <button th:id="${order.id}" type="button" onClick="deleteResourceEntity('/completeOrder', this.id)" class="driverDelete btn border border-light rounded-pill btn-success">
-                            Замовлення виконано
-                        </button>
                     </td>
                 </tr>
                 </tbody>

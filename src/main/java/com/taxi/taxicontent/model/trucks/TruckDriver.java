@@ -56,7 +56,7 @@ public class TruckDriver {
     @Lob
     private String image;
 
-    @Length(min = 10, message = "*Телефон має містити 10 цифра")
+    @Length(min = 10, message = "*Телефон має містити 10 цифр")
     @NotEmpty(message = "*Будь ласка вкажіть номер телефону")
     private String phone;
 

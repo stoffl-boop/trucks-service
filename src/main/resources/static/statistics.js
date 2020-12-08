@@ -27,9 +27,7 @@ function hoursStatistics() {
                     label: "Процент замовлень",
                     data: arrPercents,
                     backgroundColor: gradientFill,
-                    borderColor: [
-                        'rgba(86, 118, 200, 1)',
-                    ],
+                    borderColor: "rgba(86, 118, 200, 1)",
                     borderWidth: 2,
                     //pointBorderColor: "rgba(163, 86, 254, 1)",
                     //pointBackgroundColor: "rgba(163, 86, 254, 1)",
@@ -87,7 +85,7 @@ function monthStatistics() {
                     label: "Замовлення",
                     data: arrCounts,
                     backgroundColor: gradientFill,
-                    borderColor: "#3cba9f",
+                    borderColor: "rgba(86, 200, 108, 1)",
                     borderWidth: 2,
                     //pointBorderColor: "#212529",
                     pointBackgroundColor: "white",
@@ -146,9 +144,7 @@ function loadStatistics() {
                     label: "Процент завантаженості ресурсів",
                     data: arrLoad,
                     backgroundColor: gradientFill,
-                    borderColor: [
-                        'rgba(200, 86, 86, 1)',
-                    ],
+                    borderColor: "rgba(200, 86, 86, 1)",
                     borderWidth: 2,
                     //pointBorderColor: "rgba(163, 86, 254, 1)",
                     //pointBackgroundColor: "rgba(163, 86, 254, 1)",
@@ -196,11 +192,11 @@ function statusStatistics() {
         var myChart = new Chart(ctx, {
           type: 'pie',
           data: {
-            labels: ["Відмовлено", "Виконано",],
+            labels: ["Виконано", "Відмовлено"],
             datasets: [{
               backgroundColor: [
-                "#e74c3c",
-                "#2ecc71"
+                "#28a745",
+                "#dc3545"
               ],
               data: arrCounts
             }]

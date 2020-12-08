@@ -26,7 +26,7 @@ public class TruckController {
 
     @PostMapping(path = "/createTruck")
     public @ResponseBody
-    String registerTaxistRequestPost(@RequestParam String model,
+    String createTruck(@RequestParam String model,
                                      @RequestParam float length,
                                      @RequestParam float height,
                                      @RequestParam float volume,
