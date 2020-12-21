@@ -39,7 +39,7 @@
                     <td><p th:text="${truck.number}" th:remove="tag"/></td>
                     <td><p th:text="${truck?.truckDriver} ? ${truck.truckDriver.firstName + ' ' + truck?.truckDriver.secondName} : 'Не встановлено'" th:remove="tag"/></td>
                     <td>
-                        <button th:id="${truck.id}" type="button" onClick="deleteResourceEntity('/deleteTruck', this.id)" class="btn border border-light rounded-pill btn-danger">
+                        <button th:id="${truck.id}" type="button" onClick="deleteResourceEntity('/deleteTruck', this.id)" class="btn border border-light btn-danger">
                             Видалити
                         </button>
                     </td>

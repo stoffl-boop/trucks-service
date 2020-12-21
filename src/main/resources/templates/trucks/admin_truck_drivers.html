@@ -40,10 +40,10 @@
                     <td><p th:text="${driver.phone}" th:remove="tag"/></td>
                     <td th:id="${'drvTruck-' + driver.id}"><p th:text="${driver?.truck?.model} ?: 'Не встановлено'" th:remove="tag"/></td>
                     <td>
-                        <button th:drv-id="${driver.id}" type="button" class="transportAssign btn border border-light rounded-pill btn-success" data-toggle="modal" data-target="#assignAutoModal">
+                        <button th:drv-id="${driver.id}" type="button" class="transportAssign btn border border-light btn-success" data-toggle="modal" data-target="#assignAutoModal">
                             Призначити транспорт
                         </button>
-                        <button th:id="${driver.id}" type="button" onClick="deleteResourceEntity('/deleteTruckDriver', this.id)" class="driverDelete btn border border-light rounded-pill btn-danger">
+                        <button th:id="${driver.id}" type="button" onClick="deleteResourceEntity('/deleteTruckDriver', this.id)" class="driverDelete btn border border-light btn-danger">
                             Видалити
                         </button>
                     </td>
@@ -84,7 +84,7 @@
                         <td><p th:text="${truck.volume + ' м'}" th:remove="tag"/><sup>3</sup></td>
                         <td><p th:text="${truck.capacity + ' т'}" th:remove="tag"/></td>
                         <td><p th:text="${truck.number}" th:remove="tag"/></td>
-                        <td><button id="" type="button" class="btn assignTransportPostButton btn-secondary"
+                        <td><button id="" type="button" class="btn assignTransportPostButton btn-primary"
                                     th:onclick="|assignAuto('/assign_auto', this.id, '${truck.id}')|">Призначити</button></td>
                     </tr>
                     </tbody>

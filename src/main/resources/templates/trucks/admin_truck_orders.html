@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
 <head th:replace="head :: head"></head>
 <body>
 
@@ -23,9 +23,11 @@
                     <th class="th-sm">Ціна</th>
                     <th class="th-sm">Додаткова інформація</th>
                     <th class="th-sm">Час виконання</th>
-                    <th class="th-sm">Статус</th>
                     <th class="th-sm">Виконавець</th>
-                    <th class="th-sm">Дії</th>
+                    <th class="th-sm">Статус</th>
+                    <div sec:authorize="hasAuthority('DISP')" th:remove="tag">
+                        <th class="th-sm">Дії</th>
+                    </div>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,23 +38,40 @@
                     <td><p th:text="${order.price + ' грн'}" th:remove="tag"/></td>
                     <td><p th:text="${order.additionalInfo}" th:remove="tag"/></td>
                     <td><p th:text="${order.createTime + ' - '}" th:remove="tag"/><p th:text="${order.completionTime == 0 ? 'Незавершений' : order.completionTime + ' хв.'}"/></td>
-                    <td>
-                        <div th:switch="${order?.truckOrderStatus?.status}">
-                            <p th:case="'processing'" th:remove="tag">В процесі виконання</p>
-                            <p th:case="'rejected'" th:remove="tag">Відхилено</p>
-                            <p th:case="'completed'" th:remove="tag">Виконано</p>
-                            <p th:case="*" th:remove="tag">Очікує в черзі</p>
-                        </div>
-                    </td>
                     <td th:id="${'order-' + order.id}"><p th:text="${order?.truckDriver} ? ${order.truckDriver.firstName + ' ' + order.truckDriver.secondName} : 'Не встановлено'" th:remove="tag"/></td>
                     <td>
-                        <button th:drv-id="${order.id}" type="button" class="transportAssign btn border border-light rounded-pill btn-success" data-toggle="modal" data-target="#assignAutoModal">
-                            Призначити водія
-                        </button>
-                        <button th:id="${order.id}" type="button" onClick="deleteResourceEntity('/rejectOrder', this.id)" class="driverDelete btn border border-light rounded-pill btn-danger">
-                            Відхилити
-                        </button>
+                        <div th:switch="${order?.truckOrderStatus?.status}">
+                            <span class="badge badge-primary" th:case="'processing'">В процесі виконання</span>
+                            <span class="badge badge-danger" th:case="'rejected'">Відхилено</span>
+                            <span class="badge badge-success" th:case="'completed'">Виконано</span>
+                            <span class="badge badge-warning" th:case="*">Очікує в черзі</span>
+                        </div>
                     </td>
+                    <div sec:authorize="hasAuthority('DISP')" th:remove="tag">
+                        <td>
+
+                            <div th:switch="${order?.truckOrderStatus?.status}">
+                                <p class="badge" th:case="'processing'">
+                                    <button th:drv-id="${order.id}" type="button" class="transportAssign btn border border-light btn-success" data-toggle="modal" data-target="#assignAutoModal">
+                                        Призначити
+                                    </button>
+                                    <button th:id="${order.id}" type="button" onClick="deleteResourceEntity('/rejectOrder', this.id)" class="driverDelete btn border border-light btn-danger">
+                                        Відхилити
+                                    </button>
+                                </p>
+                                <p class="badge badge-danger" th:case="'rejected'">Замовлення фіналізовано</p>
+                                <p class="badge badge-success" th:case="'completed'">Замовлення фіналізовано</p>
+                                <p class="badge" th:case="*">
+                                    <button th:drv-id="${order.id}" type="button" class="transportAssign btn border border-light btn-success" data-toggle="modal" data-target="#assignAutoModal">
+                                        Призначити
+                                    </button>
+                                    <button th:id="${order.id}" type="button" onClick="deleteResourceEntity('/rejectOrder', this.id)" class="driverDelete btn border border-light btn-danger">
+                                        Відхилити
+                                    </button>
+                                </p>
+                            </div>
+                        </td>
+                    </div>
                 </tr>
                 </tbody>
             </table>
@@ -92,7 +111,7 @@
                         <td><p th:text="${truck.capacity + ' т'}" th:remove="tag"/></td>
                         <td><p th:text="${truck.number}" th:remove="tag"/></td>
                         <td><p th:text="${#lists.size(truck.truckDriver.truckOrders)}" th:remove="tag"/></td>
-                        <td><button id="" type="button" class="btn assignTransportPostButton btn-secondary"
+                        <td><button id="" type="button" class="btn assignTransportPostButton btn-primary"
                                     th:onclick="|assignDriver('/assignDriverForOrder', this.id, '${truck.truckDriver.id}')|">Призначити</button></td>
                     </tr>
                     </tbody>

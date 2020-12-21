@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">
     <a class="navbar-brand" href="#">ServeGruz v2.0</a>
@@ -34,6 +34,9 @@
             <div sec:authorize="hasAuthority('DRIVER')" th:remove="tag">
                 <li class="nav-item">
                     <a class="nav-link" href="/truck_driver_orders">Мої замовлення</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/truck_driver_orders_history">Мої історія</a>
                 </li>
             </div>
 

@@ -23,7 +23,7 @@
                     <th class="th-sm">Ціна</th>
                     <th class="th-sm">Додаткова інформація</th>
                     <th class="th-sm">Виконавець</th>
-                    <th class="th-sm">Дії</th>
+                    <th class="th-sm">Статус</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,11 +36,7 @@
                     <td th:id="${'order-' + order.id}"><p th:text="${order?.truckDriver} ? ${order.truckDriver.firstName + ' ' + order.truckDriver.secondName} : 'Не встановлено'" th:remove="tag"/></td>
                     <td>
                         <div th:switch="${order?.truckOrderStatus?.status}">
-                            <p th:case="'processing'" th:remove="tag">
-                                <button th:id="${order.id}" type="button" onClick="deleteResourceEntity('/completeOrder', this.id)" class="driverDelete btn border border-light btn-success">
-                                Завершити
-                                </button>
-                            </p>
+                            <span class="badge badge-primary" th:case="'processing'">В процесі виконання</span>
                             <span class="badge badge-danger" th:case="'rejected'">Відхилено</span>
                             <span class="badge badge-success" th:case="'completed'">Виконано</span>
                             <span class="badge badge-warning" th:case="*">Очікує в черзі</span>

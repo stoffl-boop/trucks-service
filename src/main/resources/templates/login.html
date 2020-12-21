@@ -17,7 +17,7 @@
 
 <body>
 
-<main role="main" class="container-fluid col-md-8 offset-md-2">
+<main role="main" class="container-fluid col-md-4 offset-md-4">
 
     <div class="card shadow blue-card custom-card mt-3" id="card">
 
@@ -27,9 +27,9 @@
 
         <div class="container mt-3 mb-3 mw-100">
             <form th:action="@{/login}" method="POST" class="form-signin">
-                <input type="text" id="email" name="email" placeholder="User Email"
+                <input type="text" id="email" name="email" placeholder="Email"
                        class="form-control blue-card-input mb-4 mt-4"/>
-                <input type="password" th:placeholder="Password"
+                <input type="password" th:placeholder="Пароль"
                        id="password" name="password" class="form-control blue-card-input mb-4 mt-4"/>
                 <div align="center" th:if="${param.error}">
                     <p style="font-size: 20; color: #FF1C19;">Перевірте правильність даних для авторизації</p>
